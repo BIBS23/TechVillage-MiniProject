@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1020007371342",
+    "project_id": "techvillage-91948",
+    "storage_bucket": "techvillage-91948.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020007371342:android:9d9276f960717f4f23e91f",
+        "android_client_info": {
+          "package_name": "com.example.techvillage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020007371342-umeab8ehf2glodo420cfatp9p31gqhsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgcpMapW7gMK6gz0MJ0PrNDlxgBdupZk0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020007371342-s58145us6uim1ls5o3mj997879uvt2ml.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1020007371342-emq1ndmcffja0itk6qi3hq6e09btb52c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.techvillage"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
