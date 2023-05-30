@@ -48,9 +48,10 @@ class _GingerSellersPageState extends State<GingerSellersPage> {
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
+                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
-                          route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'spices',collection2: 'ginger',),
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'spices',collection2: 'ginger',),
                         );
                       }),
                 );

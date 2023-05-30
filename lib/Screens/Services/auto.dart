@@ -47,10 +47,12 @@ class _AutoPageState extends State<AutoPage> {
                       final DocumentSnapshot documentSnapshot =
                           snapshot.data!.docs[index];
                       return ContactTile(
+                         avail: documentSnapshot['availability'],
                         phoneNumber: documentSnapshot['phone'],
                         name: documentSnapshot['name'],
                         exp: documentSnapshot['exp'],
-                        route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'services',document: 'auto',collection2: 'worker',),
+                          profimg: documentSnapshot['profimg'],
+                        route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'services',document: 'auto',collection2: 'worker',),
                       );
                     }),
               );

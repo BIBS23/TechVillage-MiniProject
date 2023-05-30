@@ -49,8 +49,10 @@ class _LimePickleSellersPageState extends State<LimePickleSellersPage> {
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
                           name: documentSnapshot['name'],
+                           avail: documentSnapshot['availability'],
                           exp: documentSnapshot['exp'],
-                          route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'pickle',collection2: 'lime',),
+                          profimg: documentSnapshot['profimg'],
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'pickle',collection2: 'lime',),
                         );
                       }),
                 );

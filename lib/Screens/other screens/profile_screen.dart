@@ -10,11 +10,16 @@ class ProfilePage extends StatefulWidget {
   final String? collection1;
   final String? document;
   final String? collection2;
-  const ProfilePage(
-      {super.key, required this.name, required this.profile,
-      this.collection1,this.collection2,this.document,
-      
-      });
+  final String profimg;
+  const ProfilePage({
+    super.key,
+    required this.name,
+    required this.profile,
+    this.collection1,
+    this.collection2,
+    this.document,
+    required this.profimg,
+  });
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -89,9 +94,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ])),
                   child: Column(
                     children: [
-                      const CircleAvatar(
-                          radius: 60,
-                          backgroundImage: AssetImage('assets/prof.png')),
+                       CircleAvatar(
+                          radius: 60, backgroundImage: NetworkImage(widget.profimg)),
                       const SizedBox(height: 30),
                       Text(widget.name,
                           style: const TextStyle(
@@ -99,9 +103,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(height: 40),
                       const Text('About', style: TextStyle(fontSize: 18)),
                       const SizedBox(height: 25),
-                      Text(
-                        widget.profile,
-                        textAlign: TextAlign.justify,
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text(
+                          widget.profile,
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontSize: 16),
+                        ),
                       ),
                       Expanded(
                         child: Align(

@@ -46,10 +46,12 @@ class _EggPageState extends State<EggPage> {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
                         return ContactTile(
+                           avail: documentSnapshot['availability'],
                           phoneNumber: documentSnapshot['phone'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
-                          route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'egg',collection2: 'sellers',),
+                            profimg: documentSnapshot['profimg'],
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'egg',collection2: 'sellers',),
                         );
                       }),
                 );

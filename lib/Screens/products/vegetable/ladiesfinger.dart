@@ -48,9 +48,11 @@ class _LadiesFingerSellersPageState extends State<LadiesFingerSellersPage> {
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
+                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
-                          route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',collection2: 'ladiesfinger',document: 'vegetable',),
+                            profimg: documentSnapshot['profimg'],
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',collection2: 'ladiesfinger',document: 'vegetable',),
                         );
                       }),
                 );

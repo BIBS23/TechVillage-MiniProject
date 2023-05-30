@@ -47,10 +47,12 @@ class _MasonPageState extends State<MasonPage> {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
                         return ContactTile(
+                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           phoneNumber: documentSnapshot['phone'],
                           exp: documentSnapshot['exp'],
-                          route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'servics',collection2: 'mason',document: 'localworkers',),
+                            profimg: documentSnapshot['profimg'],
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'servics',collection2: 'mason',document: 'localworkers',),
                         );
                       }),
                 );

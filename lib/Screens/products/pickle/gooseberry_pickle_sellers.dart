@@ -48,9 +48,11 @@ class _GooseberryPickleSellersPageState extends State<GooseberryPickleSellersPag
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
+                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
-                          route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],document: 'pickles',collection1: 'products',collection2: 'gooseberry',),
+                          profimg: documentSnapshot['profimg'],
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],document: 'pickles',collection1: 'products',collection2: 'gooseberry',),
                         );
                       }),
                 );

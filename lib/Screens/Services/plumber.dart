@@ -46,10 +46,12 @@ class _PlumberPageState extends State<PlumberPage> {
                       final DocumentSnapshot documentSnapshot =
                           snapshot.data!.docs[index];
                       return ContactTile(
+                         avail: documentSnapshot['availability'],
                         phoneNumber: documentSnapshot['phone'],
                         name: documentSnapshot['name'],
                         exp: documentSnapshot['exp'],
-                        route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'services',document: 'plumber',collection2: 'worker',),
+                          profimg: documentSnapshot['profimg'],
+                        route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'services',document: 'plumber',collection2: 'worker',),
                       );
                     }),
               );

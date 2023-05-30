@@ -5,8 +5,10 @@ class ContactTile extends StatelessWidget {
   final String phoneNumber;
   final String name;
   final int exp;
+  final String? profimg;
   final String? type;
   final Widget? route;
+  final String avail;
 
   const ContactTile({
     super.key,
@@ -14,7 +16,9 @@ class ContactTile extends StatelessWidget {
     required this.name,
     required this.exp,
     required this.route,
+    required this.avail,
     this.type,
+    this.profimg,
   });
 
   @override
@@ -28,55 +32,51 @@ class ContactTile extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
-      child: Container(
-        height: 175,
-        decoration: BoxDecoration(
-            color: Colors.white70,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 7,
-              )
-            ],
-            borderRadius: BorderRadius.circular(10)),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 3),
-                    child: CircleAvatar(
-                      maxRadius: 28,
-                      backgroundImage: AssetImage('assets/prof.png'),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 60),
-                Column(
-                  children: [
-                    const SizedBox(height: 15),
-                    Text(name, style: const TextStyle(fontSize: 20)),
-                    const SizedBox(height: 5),
-                    Text('$exp\tYears', style: const TextStyle(fontSize: 15)),
-                    const SizedBox(height: 5),
-                    if (type != null && type!.isNotEmpty) ...[
-                      const SizedBox(height: 5),
-                      Text(type!, style: const TextStyle(fontSize: 15)),
-                    ],
-                    const SizedBox(height: 5),
-                    const Text('Available: 9am - 5pm',
-                        style: TextStyle(fontSize: 15)),
-                    const SizedBox(height: 5),
-                  ],
+        padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
+        child: Container(
+          height: 175,
+          decoration: BoxDecoration(
+              color: Colors.white70,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 7,
                 )
               ],
-            ),
-            const SizedBox(height: 5),
+              borderRadius: BorderRadius.circular(10)),
+          child: Column(children: [
+            Row(children: [
+              const SizedBox(width: 30),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3),
+                  child: CircleAvatar(
+                      maxRadius: 28,
+                      backgroundImage: NetworkImage(profimg.toString())),
+                ),
+              ),
+              const SizedBox(width: 30),
+              Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Text(name, style: const TextStyle(fontSize: 20)),
+                  const SizedBox(height: 5),
+                  Text('$exp\tYears', style: const TextStyle(fontSize: 15)),
+                  const SizedBox(height: 5),
+                  if (type != null && type!.isNotEmpty) ...[
+                    const SizedBox(height: 5),
+                    Text(type!, style: const TextStyle(fontSize: 15)),
+                  ],
+                  const SizedBox(height: 5),
+                   Text(avail,
+                      style: const TextStyle(fontSize: 15)),
+                  const SizedBox(height: 5),
+                  const SizedBox(height: 5),
+                ],
+              ),
+            ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -99,9 +99,7 @@ class ContactTile extends StatelessWidget {
                     child: const Text('Call')),
               ],
             )
-          ],
-        ),
-      ),
-    );
+          ]),
+        ));
   }
 }

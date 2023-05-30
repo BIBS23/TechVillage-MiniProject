@@ -48,9 +48,10 @@ class _PepperSellersPageState extends State<PepperSellersPage> {
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
+                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
-                          route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'spices',collection2: 'pepper',),
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'spices',collection2: 'pepper',),
                         );
                       }),
                 );

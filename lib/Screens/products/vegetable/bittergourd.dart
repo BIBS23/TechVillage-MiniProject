@@ -50,7 +50,9 @@ class _BitterGourdSellersPageState extends State<BitterGourdSellersPage> {
                           phoneNumber: documentSnapshot['phone'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
-                          route: ProfilePage(name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'vegetable',collection2: 'bittergourd',),
+                           avail: documentSnapshot['availability'],
+                            profimg: documentSnapshot['profimg'],
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'vegetable',collection2: 'bittergourd',),
                         );
                       }),
                 );
