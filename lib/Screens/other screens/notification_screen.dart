@@ -66,7 +66,7 @@ class _NotificationPageState extends State<NotificationPage> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Text('19/05/2023'),
+                        Text(documentSnapshot['exp'].toString()),
                         Container(
                           height: 65,
                           width: 130,

@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('TechVillage',
             style: GoogleFonts.cookie(
                 textStyle: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic))),
         centerTitle: true,

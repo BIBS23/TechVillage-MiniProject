@@ -52,7 +52,7 @@ class _MasonPageState extends State<MasonPage> {
                           phoneNumber: documentSnapshot['phone'],
                           exp: documentSnapshot['exp'],
                             profimg: documentSnapshot['profimg'],
-                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'servics',collection2: 'mason',document: 'localworkers',),
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'services',collection2: 'mason',document: 'localworkers',),
                         );
                       }),
                 );

@@ -6,7 +6,6 @@ class ContactTile extends StatelessWidget {
   final String name;
   final int exp;
   final String? profimg;
-  final String? type;
   final Widget? route;
   final String avail;
 
@@ -17,7 +16,6 @@ class ContactTile extends StatelessWidget {
     required this.exp,
     required this.route,
     required this.avail,
-    this.type,
     this.profimg,
   });
 
@@ -61,14 +59,11 @@ class ContactTile extends StatelessWidget {
               Column(
                 children: [
                   const SizedBox(height: 15),
-                  Text(name, style: const TextStyle(fontSize: 20)),
+                  SizedBox(
+                    width: 170,
+                    child: Center(child: Text(name, textAlign: TextAlign.justify, style:  const TextStyle(fontSize: 20,overflow: TextOverflow.ellipsis,fontWeight: FontWeight.w500)))),
                   const SizedBox(height: 5),
                   Text('$exp\tYears', style: const TextStyle(fontSize: 15)),
-                  const SizedBox(height: 5),
-                  if (type != null && type!.isNotEmpty) ...[
-                    const SizedBox(height: 5),
-                    Text(type!, style: const TextStyle(fontSize: 15)),
-                  ],
                   const SizedBox(height: 5),
                    Text(avail,
                       style: const TextStyle(fontSize: 15)),

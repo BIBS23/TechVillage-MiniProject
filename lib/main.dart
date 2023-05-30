@@ -31,6 +31,10 @@ class _MyAppState extends State<MyApp> {
         setState(() {
           isLoggin = true;
         });
+      } else{
+        setState(() {
+          isLoggin = false;
+        });
       }
     });
   }

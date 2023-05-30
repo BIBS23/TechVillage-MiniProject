@@ -92,27 +92,27 @@ class _ProfilePageState extends State<ProfilePage> {
                         Colors.transparent,
                         const Color.fromRGBO(69, 160, 54, 100).withOpacity(0.9)
                       ])),
-                  child: Column(
-                    children: [
-                       CircleAvatar(
-                          radius: 60, backgroundImage: NetworkImage(widget.profimg)),
-                      const SizedBox(height: 30),
-                      Text(widget.name,
-                          style: const TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.w400)),
-                      const SizedBox(height: 40),
-                      const Text('About', style: TextStyle(fontSize: 18)),
-                      const SizedBox(height: 25),
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Text(
-                          widget.profile,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 16),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                         CircleAvatar(
+                            radius: 60, backgroundImage: NetworkImage(widget.profimg)),
+                        const SizedBox(height: 30),
+                        Text(widget.name,
+                            style: const TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.w400)),
+                        const SizedBox(height: 40),
+                        const Text('About', style: TextStyle(fontSize: 18,letterSpacing: 10)),
+                        const SizedBox(height: 25),
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Text(
+                            widget.profile,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Align(
+                        Align(
                           alignment: Alignment.bottomCenter,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -131,9 +131,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: const Text('Report this profile'),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 40),
-                    ],
+                        const SizedBox(height: 40),
+                      ],
+                    ),
                   ),
                 );
               }

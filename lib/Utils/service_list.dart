@@ -8,7 +8,7 @@ List serviceList = [
   'assets/tutor.jpg',
   'assets/mechanic.jpg',
   'assets/housekeepers.jpg',
-  'assets/carpenter.jpg',
+  'assets/carpenter.png',
   'assets/climbers.jpg',
   'assets/painter.jpg',
   'assets/drycleaner.png',

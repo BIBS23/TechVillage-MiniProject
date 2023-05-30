@@ -52,7 +52,7 @@ class _GooseberryPickleSellersPageState extends State<GooseberryPickleSellersPag
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
                           profimg: documentSnapshot['profimg'],
-                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],document: 'pickles',collection1: 'products',collection2: 'gooseberry',),
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],document: 'pickle',collection1: 'products',collection2: 'gooseberry',),
                         );
                       }),
                 );
