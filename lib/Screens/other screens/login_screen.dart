@@ -23,9 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     getConnectivity();
+  
     super.initState();
   }
 
+ 
   @override
   void dispose() {
     subscription.cancel();
@@ -36,10 +38,12 @@ class _LoginScreenState extends State<LoginScreen> {
     subscription = Connectivity().onConnectivityChanged.listen(
       (ConnectivityResult result) async {
         isDeviceConnected = await InternetConnectionChecker().hasConnection;
-        if (!isDeviceConnected && isAlertSet == false) {
+
+        isDeviceConnected = result != ConnectivityResult.none;
+        if (!isDeviceConnected) {
           showDialogBox();
-          setState(() => isAlertSet = true);
         }
+        setState(() => isAlertSet = true);
       },
     );
   }
@@ -66,12 +70,12 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 30),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 60),
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 60),
                   child: Text(
-                    'Discover local services at your fingertips!',
+                    'Discover, Connect, and Stay Informed: Your Panchayats All-in-One App!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 22,
                       color: const Color.fromRGBO(69, 160, 54, 50)
                           .withOpacity(0.8),
                     ),
@@ -160,8 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  showDialogBox(
-  ) => showCupertinoDialog<String>(
+  showDialogBox() => showCupertinoDialog<String>(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
           title: const Text('No Connection'),
@@ -174,8 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 isDeviceConnected =
                     await InternetConnectionChecker().hasConnection;
                 if (!isDeviceConnected && isAlertSet == false) {
-                  showDialogBox(
-                  );
+                  showDialogBox();
                   setState(() => isAlertSet = true);
                 }
               },
