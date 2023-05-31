@@ -61,3 +61,30 @@ class _AutoPageState extends State<AutoPage> {
     );
   }
 }
+
+void showCustomSnackBar(BuildContext context, String message) {
+    final snackBarTheme = Theme.of(context).snackBarTheme;
+    final snackBar = SnackBar(
+      content: Text(
+        message,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      backgroundColor: snackBarTheme.backgroundColor,
+      elevation: snackBarTheme.elevation,
+      shape: snackBarTheme.shape,
+      behavior: snackBarTheme.behavior,
+      duration: const Duration(seconds: 3),
+      action: SnackBarAction(
+        label: 'OK',
+        textColor: snackBarTheme.actionTextColor,
+        onPressed: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+

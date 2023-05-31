@@ -93,8 +93,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               } else {
                                 // User is null, stay on the login screen
                                 scaffoldMessenger.showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Unable to sign in.'),
+                                   SnackBar(
+                                    duration: const Duration(milliseconds: 1000 ),
+                                    backgroundColor: Colors.transparent,
+                                    elevation: 0,
+                                    content: Container(
+                                      height: 90,
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(55, 255, 255, 255),
+                                        borderRadius: BorderRadius.circular(20)
+                                      ),
+                                      child: const  Center(child: Text('Unable to sign in',style: TextStyle(letterSpacing: 5) ,))),
+                                    behavior: SnackBarBehavior.floating,
                                   ),
                                 );
                               }
@@ -134,3 +144,5 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+
