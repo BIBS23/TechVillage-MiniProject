@@ -7,20 +7,20 @@ import '../../controller/login_controller.dart';
 import 'help_screen.dart';
 
 class TechVillageProfilePage extends StatefulWidget {
-  const TechVillageProfilePage({super.key});
+  const TechVillageProfilePage({Key? key}) : super(key: key);
 
   @override
   State<TechVillageProfilePage> createState() => _TechVillageProfilePageState();
 }
 
 class _TechVillageProfilePageState extends State<TechVillageProfilePage> {
-  late String prof;
+  String prof = '';
   bool isloaded = true;
 
   @override
   void initState() {
-    setState(() {});
     fetchUserProfile();
+ 
 
     super.initState();
   }
@@ -33,6 +33,8 @@ class _TechVillageProfilePageState extends State<TechVillageProfilePage> {
       isloaded = false;
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,18 +75,25 @@ class _TechVillageProfilePageState extends State<TechVillageProfilePage> {
             child: isloaded
                 ? const Center(
                     child: CupertinoActivityIndicator(
-                      color: Colors.white,
-                      radius: 18,
-                    ),
-                  )
+                    color: Colors.white,
+                    radius: 18,
+                  ))
                 : Column(children: [
-                    Align(
+                   prof.isNotEmpty ? Align(
                       alignment: Alignment.topCenter,
                       child: Padding(
                           padding: const EdgeInsets.only(top: 40),
-                          child: CircleAvatar(
-                              radius: 60, backgroundImage: NetworkImage(prof))),
-                    ),
+                          child:  CircleAvatar(
+                                  radius: 60,
+                                  backgroundImage: NetworkImage(prof))),
+                    ):  Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 40),
+                          child:  CircleAvatar(
+                                  radius: 60,
+                                  backgroundColor: const Color.fromARGB(156, 111, 194, 98).withOpacity(0.9),
+                                  child: Text(auth.userName![0],style: const TextStyle(color: Colors.white,fontSize: 50),),))) ,
                     const SizedBox(height: 50),
                     Text(auth.userName.toString()),
                     const SizedBox(height: 20),

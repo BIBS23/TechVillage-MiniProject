@@ -23,20 +23,24 @@ class AuthController extends ChangeNotifier {
     _isnull = false;
   }
 
-    Future<void> fetchUserProfile() async {
-    // Simulating an asynchronous API call to fetch the user profile
-    await Future.delayed(const Duration(seconds: 1));
-    
-    // Set the user profile data
-         final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      _name = googleUser!.displayName;
-      _photoUrl = googleUser.photoUrl!.replaceAll("s96-c", "s192-c");
-      _mail = googleUser.email;
-
-    
-
-    notifyListeners();
+Future<void> fetchUserProfile() async {
+  // Simulating an asynchronous API call to fetch the user profile
+  await Future.delayed(const Duration(seconds: 1));
+  
+  // Set the user profile data
+  final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  _name = googleUser!.displayName;
+  _mail = googleUser.email;
+  
+  // Check if the profile picture is available
+  if (googleUser.photoUrl != null) {
+    _photoUrl = googleUser.photoUrl!.replaceAll("s96-c", "s192-c");
+  } else {
+    _photoUrl = ''; // Set an empty string if profile picture is not available
   }
+
+  notifyListeners();
+}
 
   Future<User?> handleGoogleSignIn() async {
     try {
