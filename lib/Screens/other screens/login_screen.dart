@@ -81,21 +81,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
 
                             signin.reset();
-                            try {
-                              await signin.handleGoogleSignIn().then(
-                                (value) async {
-                                  if (signin.isnull == true) {
-                                    // Stay on the login screen
-                                    return;
-                                  }
+                            final scaffoldMessenger =
+                                ScaffoldMessenger.of(context);
+                            final navigator = Navigator.of(context);
 
-                                  Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    '/signin',
-                                    (route) => false,
-                                  );
-                                },
-                              );
+                            try {
+                              final user = await signin.handleGoogleSignIn();
+                              if (user != null) {
+                                navigator.pushNamedAndRemoveUntil(
+                                    '/signin', (route) => false);
+                              } else {
+                                // User is null, stay on the login screen
+                                scaffoldMessenger.showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Unable to sign in.'),
+                                  ),
+                                );
+                              }
                             } catch (e) {
                               print('Unable to sign in');
                             } finally {
