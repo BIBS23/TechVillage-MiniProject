@@ -23,17 +23,58 @@ class _OrdersPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
 
-    List serviceType =  [
-      const MilkPage(),
-      const CoconutPage(),
-      const EggPage(),
-      PicklePage(),
-      FishPage(),
-      const ChickenPage(),
-      SpicesPage(),
-      VegetablesPage(),
-      const BananaSellersPage(),
-      const CakeSellersPage()
+    List productType =  [
+      {
+        'widget':  const MilkPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const CoconutPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const EggPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':   PicklePage(),
+        'fav': true,
+
+      },
+        {
+        'widget':   FishPage(),
+        'fav': true,
+
+      },
+      
+      {
+        'widget': const ChickenPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  SpicesPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':   VegetablesPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':   const BananaSellersPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const CakeSellersPage(),
+        'fav': true,
+
+      }
    
 
     ];
@@ -56,7 +97,7 @@ class _OrdersPageState extends State<ProductsPage> {
           crossAxisSpacing: 12,
           crossAxisCount: 2),
           itemBuilder: (context, index) {
-            return ProdServiceTile(image: prodList[index],title: prodTitle[index],type: serviceType[index]);
+            return ProdServiceTile(image: prodList[index],title: prodTitle[index],type: productType[index]['widget'],fav: productType[index]['fav'],);
           }),
         )
     );

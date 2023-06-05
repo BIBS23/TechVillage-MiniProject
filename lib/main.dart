@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:techvillage/Screens/other%20screens/login_screen.dart';
+import 'package:techvillage/controller/add_to_fav.dart';
 import 'package:techvillage/controller/login_controller.dart';
 import 'Screens/other screens/nav.dart';
 import 'Screens/other screens/splash_screen.dart';
@@ -50,6 +51,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthController()),
+          ChangeNotifierProvider(create: (_) => AddToFav()),
       ],
       child: MaterialApp(
         title: 'TechVillage',

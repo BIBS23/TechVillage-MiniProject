@@ -23,24 +23,79 @@ class ServicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     List serviceType =  [
-      const PlumberPage(),
-      const ElectricianPage(),
-      const AutoPage(),
-      HealthPage(),
-      const TailorPage(),
-      LocalWorkersPage(),
-      const TutorPage(),
-      const MechanicPage(),
-      const HouseKeepersPage(),
-      const CarpenterPage(),
-      const CoconutClimberPage(),
-      const PainterPage(),
-      const DryCleanerPage()
 
 
+    List serviceType =  [
+      {
+        'widget':  const PlumberPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const ElectricianPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const AutoPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':   HealthPage(),
+        'fav': true,
+
+      },
+        {
+        'widget':   const TailorPage(),
+        'fav': true,
+
+      },
+      
+      {
+        'widget':  LocalWorkersPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const TutorPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':   const MechanicPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':   const HouseKeepersPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const CarpenterPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const CoconutClimberPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const PainterPage(),
+        'fav': true,
+
+      },
+      {
+        'widget':  const  DryCleanerPage(),
+        'fav': true,
+
+      }
+   
 
     ];
+    
     return Scaffold(
         appBar: AppBar(
             backgroundColor: const Color.fromRGBO(62, 202, 59, 100),
@@ -61,7 +116,7 @@ class ServicePage extends StatelessWidget {
           crossAxisSpacing: 12,
           crossAxisCount: 2),
           itemBuilder: (context, index) {
-            return ProdServiceTile(image: serviceList[index],title: serviceTitle[index],type: serviceType[index],);
+            return ProdServiceTile(image: serviceList[index],title: serviceTitle[index],type: serviceType[index]['widget'],fav:serviceType[index]['fav']);
           }),
         )
     );

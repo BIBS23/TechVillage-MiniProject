@@ -15,10 +15,28 @@ class FishPage extends StatelessWidget {
 
   final List fishImg = ['assets/mushi.jpg', 'assets/thilopia.jpg','assets/catla.jpg','assets/rohu.jpg'];
   final List fishTypePage = const  [
-    MushiPage(),
-    CatlaPage(),
-    ThilopiaPage(),
-    RohuPage(),
+
+    {
+        'widget':  const MushiPage(),
+        'fav': false,
+
+      },
+      {
+        'widget':  const CatlaPage(),
+        'fav': false,
+
+      },
+      {
+        'widget':  const ThilopiaPage(),
+        'fav': false,
+
+      },
+      {
+        'widget':  const RohuPage(),
+        'fav': false,
+
+      }
+   
    
   ];
 
@@ -29,7 +47,7 @@ class FishPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(62, 202, 59, 100),
-        title: const Text('Spices',
+        title: const Text('Fish',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         elevation: 0,
       ),
@@ -47,7 +65,8 @@ class FishPage extends StatelessWidget {
               return ProdServiceTile(
                 title: spiceType[index],
                 image: fishImg[index],
-                type: fishTypePage[index],
+                type: fishTypePage[index]['wiget'],
+                fav: fishTypePage[index]['fav'],
               );
             }),
       ),

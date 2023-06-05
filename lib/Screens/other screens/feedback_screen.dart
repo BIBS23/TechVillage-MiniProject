@@ -72,7 +72,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           child: Column(
             children: [
               const SizedBox(height: 70),
-              const Text('How was your experiance:',
+              const Text('How was your experience:',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
               const SizedBox(height: 40),
               FeebackTxtField(

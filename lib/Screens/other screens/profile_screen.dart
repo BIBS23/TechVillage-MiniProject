@@ -111,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Text(
                                 widget.profile,
                                 textAlign: TextAlign.justify,
-                                style: TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 16),
                               ),
                             ),
                           ],
@@ -143,6 +143,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 );
               }
-            }));
+            }),
+           
+            );
   }
 }

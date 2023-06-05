@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends ChangeNotifier {
   String? get userName => _name;
@@ -23,24 +22,24 @@ class AuthController extends ChangeNotifier {
     _isnull = false;
   }
 
-Future<void> fetchUserProfile() async {
-  // Simulating an asynchronous API call to fetch the user profile
-  await Future.delayed(const Duration(seconds: 1));
-  
-  // Set the user profile data
-  final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-  _name = googleUser!.displayName;
-  _mail = googleUser.email;
-  
-  // Check if the profile picture is available
-  if (googleUser.photoUrl != null) {
-    _photoUrl = googleUser.photoUrl!.replaceAll("s96-c", "s192-c");
-  } else {
-    _photoUrl = ''; // Set an empty string if profile picture is not available
-  }
+  Future<void> fetchUserProfile() async {
+    // Simulating an asynchronous API call to fetch the user profile
+    await Future.delayed(const Duration(seconds: 1));
 
-  notifyListeners();
-}
+    // Set the user profile data
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    _name = googleUser!.displayName;
+    _mail = googleUser.email;
+
+    // Check if the profile picture is available
+    if (googleUser.photoUrl != null) {
+      _photoUrl = googleUser.photoUrl!.replaceAll("s96-c", "s192-c");
+    } else {
+      _photoUrl = ''; // Set an empty string if profile picture is not available
+    }
+
+    notifyListeners();
+  }
 
   Future<User?> handleGoogleSignIn() async {
     try {
@@ -52,8 +51,6 @@ Future<void> fetchUserProfile() async {
         // User canceled the sign-in
         return null;
       }
-
-      
 
       // Obtain the auth details from the Google Sign-In
       final GoogleSignInAuthentication googleAuth =
@@ -71,13 +68,10 @@ Future<void> fetchUserProfile() async {
 
       // Fetch additional user information from the userCredential.user object
       _name = googleUser.displayName;
-      _photoUrl = googleUser.photoUrl!.replaceAll("s96-c", "s192-c");
       _mail = googleUser.email;
+      _photoUrl = googleUser.photoUrl ?? '';
 
       print('Profile Picture URL: $_photoUrl'); // Check the profile picture URL
-
-      // Save login information to shared preferences
-      await saveLoginInfo();
 
       notifyListeners();
 
@@ -91,7 +85,6 @@ Future<void> fetchUserProfile() async {
   }
 
   Future handleGoogleSignOut(BuildContext context) async {
-
     try {
       // Sign out from Firebase and Google
       await _auth.signOut();
@@ -103,28 +96,10 @@ Future<void> fetchUserProfile() async {
                 (route) => false,
               )); // Navigate to the sign-in screen after successful sign out
 
-      // Clear login information from shared preferences
-      await clearLoginInfo();
-
       notifyListeners();
     } catch (e) {
       // Handle the sign-out error
       print('Error signing out: $e');
     }
-  }
-
-  Future saveLoginInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', true);
-    await prefs.setString('userName', _name ?? '');
-    await prefs.setString('mailId', _mail ?? '');
-  }
-
-  Future clearLoginInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', false);
-    await prefs.setString('userName', '');
-    await prefs.setString('mailId', '');
-    await prefs.setString('userProf', '');
   }
 }
