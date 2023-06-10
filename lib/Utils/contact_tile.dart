@@ -1,21 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactTile extends StatelessWidget {
   final String phoneNumber;
   final String name;
-  final int exp;
+  final String? exp;
   final String? profimg;
   final Widget? route;
-  final String avail;
+  final String? avail;
+  final bool? istrue;
 
   const ContactTile({
     super.key,
     required this.phoneNumber,
     required this.name,
-    required this.exp,
+    this.exp,
+    this.istrue,
     required this.route,
-    required this.avail,
+    this.avail,
     this.profimg,
   });
 
@@ -60,13 +63,16 @@ class ContactTile extends StatelessWidget {
                 children: [
                   const SizedBox(height: 15),
                   SizedBox(
-                    width: 170,
-                    child: Center(child: Text(name, textAlign: TextAlign.justify, style:  const TextStyle(fontSize: 20,overflow: TextOverflow.ellipsis,fontWeight: FontWeight.w500)))),
+                      width: 170,
+                      child: Center(
+                          child: Text(name,
+                              textAlign: TextAlign.justify,
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.w500)))),
                   const SizedBox(height: 5),
-                  Text('Exp : $exp\tYears', style: const TextStyle(fontSize: 15)),
-                  const SizedBox(height: 5),
-                   Text('Time : $avail',
-                      style: const TextStyle(fontSize: 15)),
+                 istrue == true? Text('Exp : $exp', style: const TextStyle(fontSize: 15)):Text('Rate : $exp', style: const TextStyle(fontSize: 15)),
                   const SizedBox(height: 5),
                   const SizedBox(height: 5),
                 ],

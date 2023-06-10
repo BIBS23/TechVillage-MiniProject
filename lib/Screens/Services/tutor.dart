@@ -51,6 +51,7 @@ class _TutorPageState extends State<TutorPage> {
                           name: documentSnapshot['name'],
                           phoneNumber: documentSnapshot['phone'],
                           exp: documentSnapshot['exp'],
+                           istrue: true, 
                             profimg: documentSnapshot['profimg'],
                           route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'services',collection2: 'worker',document: 'tutors',),
                         );

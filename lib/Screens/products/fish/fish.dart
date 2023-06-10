@@ -17,22 +17,23 @@ class FishPage extends StatelessWidget {
   final List fishTypePage = const  [
 
     {
-        'widget':  const MushiPage(),
+        'widget':  MushiPage(),
+        'fav': false,
+
+      },
+     
+      {
+        'widget': ThilopiaPage(),
+        'fav': false,
+
+      },
+       {
+        'widget': CatlaPage(),
         'fav': false,
 
       },
       {
-        'widget':  const CatlaPage(),
-        'fav': false,
-
-      },
-      {
-        'widget':  const ThilopiaPage(),
-        'fav': false,
-
-      },
-      {
-        'widget':  const RohuPage(),
+        'widget':  RohuPage(),
         'fav': false,
 
       }
@@ -65,7 +66,7 @@ class FishPage extends StatelessWidget {
               return ProdServiceTile(
                 title: spiceType[index],
                 image: fishImg[index],
-                type: fishTypePage[index]['wiget'],
+                type: fishTypePage[index]['widget'],
                 fav: fishTypePage[index]['fav'],
               );
             }),

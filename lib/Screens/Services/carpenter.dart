@@ -46,6 +46,7 @@ class _CarpenterPageState extends State<CarpenterPage> {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
                         return ContactTile(
+                           istrue: true,
                            avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           phoneNumber: documentSnapshot['phone'],

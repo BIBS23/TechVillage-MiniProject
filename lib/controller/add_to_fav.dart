@@ -26,7 +26,7 @@ import '../Screens/Services/plumber.dart';
 import '../Screens/products/milk.dart';
 
 class AddToFav extends ChangeNotifier {
-  String? _fav;
+  String _fav = 'true';
 
     User? user = FirebaseAuth.instance.currentUser;
     late String userId = user!.uid;

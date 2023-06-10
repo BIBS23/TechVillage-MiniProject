@@ -9,10 +9,10 @@ class MilkPage extends StatefulWidget {
   const MilkPage({super.key});
 
   @override
-  State<MilkPage> createState() => _TailorPageState();
+  State<MilkPage> createState() => _MilkPageState();
 }
 
-class _TailorPageState extends State<MilkPage> {
+class _MilkPageState extends State<MilkPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,12 +47,13 @@ class _TailorPageState extends State<MilkPage> {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
                         return ContactTile(
-                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           phoneNumber: documentSnapshot['phone'],
+                          istrue: false,
                           exp: documentSnapshot['exp'],
+                          
                             profimg: documentSnapshot['profimg'],
-                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',collection2: 'sellers',document: 'milk',),
+                          route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',collection2: 'sellers',document: 'milk'),
                         );
                       }),
                 );

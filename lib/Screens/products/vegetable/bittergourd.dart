@@ -49,8 +49,7 @@ class _BitterGourdSellersPageState extends State<BitterGourdSellersPage> {
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
                           name: documentSnapshot['name'],
-                          exp: documentSnapshot['exp'],
-                           avail: documentSnapshot['availability'],
+                           exp: documentSnapshot['exp'],
                             profimg: documentSnapshot['profimg'],
                           route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',document: 'vegetable',collection2: 'bittergourd',),
                         );

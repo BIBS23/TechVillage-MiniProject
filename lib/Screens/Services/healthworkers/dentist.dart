@@ -47,6 +47,7 @@ class _DentistPageState extends State<DentistPage> {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
                         return ContactTile(
+                           istrue: true,
                            avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           phoneNumber: documentSnapshot['phone'],

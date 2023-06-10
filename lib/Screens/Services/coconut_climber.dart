@@ -47,6 +47,7 @@ class _CoconutClimberPageState extends State<CoconutClimberPage> {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
                         return ContactTile(
+                           istrue: true,
                            avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           phoneNumber: documentSnapshot['phone'],

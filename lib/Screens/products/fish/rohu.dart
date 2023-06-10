@@ -30,7 +30,7 @@ class _RohuPageState extends State<RohuPage> {
           stream: FirebaseFirestore.instance
               .collection('products')
               .doc('fish')
-              .collection('thilopia')
+              .collection('rohu')
               .snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

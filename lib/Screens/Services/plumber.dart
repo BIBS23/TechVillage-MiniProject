@@ -46,6 +46,7 @@ class _PlumberPageState extends State<PlumberPage> {
                       final DocumentSnapshot documentSnapshot =
                           snapshot.data!.docs[index];
                       return ContactTile(
+                         istrue: true,
                          avail: documentSnapshot['availability'],
                         phoneNumber: documentSnapshot['phone'],
                         name: documentSnapshot['name'],

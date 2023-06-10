@@ -49,6 +49,7 @@ class _HomeNursePageState extends State<HomeNursePage> {
                         return ContactTile(
                            avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
+                           istrue: true,
                           phoneNumber: documentSnapshot['phone'],
                           exp: documentSnapshot['exp'],
                             profimg: documentSnapshot['profimg'],

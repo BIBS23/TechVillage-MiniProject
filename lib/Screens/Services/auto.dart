@@ -51,6 +51,7 @@ class _AutoPageState extends State<AutoPage> {
                         phoneNumber: documentSnapshot['phone'],
                         name: documentSnapshot['name'],
                         exp: documentSnapshot['exp'],
+                        istrue: true,
                           profimg: documentSnapshot['profimg'],
                         route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'services',document: 'auto',collection2: 'worker',),
                       );

@@ -47,6 +47,7 @@ class _AshaWorkerPageState extends State<AshaWorkerPage> {
                         final DocumentSnapshot documentSnapshot =
                             snapshot.data!.docs[index];
                         return ContactTile(
+                           istrue: true,
                            avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           phoneNumber: documentSnapshot['phone'],

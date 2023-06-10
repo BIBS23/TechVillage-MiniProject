@@ -50,7 +50,7 @@ class _MushiPageState extends State<MushiPage> {
                          avail: documentSnapshot['availability'],
                         phoneNumber: documentSnapshot['phone'],
                         name: documentSnapshot['name'],
-                        exp: documentSnapshot['exp'],
+                      
                           profimg: documentSnapshot['profimg'],
                         route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',collection2: 'mushi',document: 'fish',),
                       );
