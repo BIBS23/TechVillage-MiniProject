@@ -8,13 +8,15 @@ class ProdServiceTile extends StatefulWidget {
   final String title;
   final Widget? type;
   final bool? fav;
+  final bool? isFavorite;
   const ProdServiceTile({
-    super.key,
+    Key? key,
     required this.title,
     required this.image,
     this.type,
     this.fav,
-  });
+    this.isFavorite = false,
+  }) : super(key: key);
 
   @override
   State<ProdServiceTile> createState() => _ProdServiceTileState();
@@ -22,13 +24,11 @@ class ProdServiceTile extends StatefulWidget {
 
 class _ProdServiceTileState extends State<ProdServiceTile> {
   bool favColor = false;
-    late String documentId;
+  String? documentId;
 
   CollectionReference collectionRef =
-        FirebaseFirestore.instance.collection('favourites');
+      FirebaseFirestore.instance.collection('favourites');
   void getData() async {
-    
-
     QuerySnapshot<Object?> snapshot = await collectionRef.get();
 
     if (snapshot.docs.isNotEmpty) {
@@ -36,12 +36,25 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
 
       for (int i = 0; i < documentList.length; i++) {
         QueryDocumentSnapshot<Object?> documentSnapshot = documentList[i];
-        documentId = documentSnapshot.id;
+        if (widget.title == documentSnapshot.get('title') &&
+            widget.image == documentSnapshot.get('image')) {
+          setState(() {
+            favColor = true;
+            documentId = documentSnapshot.id; // Set the document ID
+          });
+          break; // Exit the loop after finding a match
+        }
 
         // Use the document ID as needed
-        print('Document ID at index $i: $documentId');
+        print('Document ID at index $i: ${documentSnapshot.id}');
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
   }
 
   @override
@@ -49,65 +62,83 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
     return GestureDetector(
       behavior: HitTestBehavior
           .opaque, // Ensure GestureDetector receives all touch events
-
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => widget.type!));
+          context,
+          MaterialPageRoute(builder: (context) => widget.type!),
+        );
       },
       child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 0.1,
-                blurRadius: 7,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 0.1,
+              blurRadius: 7,
+            ),
+          ],
+        ),
+        child: Consumer<AddToFav>(
+          builder: (context, fav, child) => Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                flex: 33,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    splashRadius: 1,
+                    onPressed: () async {
+                      fav.addToFav(widget.title, widget.image, context);
+                      setState(() {
+                        favColor = !favColor;
+                      });
+
+                      if (favColor) {
+                        // Add to favorites in the database
+                        DocumentReference docRef = await collectionRef.add({
+                          'title': widget.title,
+                          'image': widget.image,
+                        });
+                        setState(() {
+                          documentId = docRef.id;
+                        });
+                      } else if (documentId != null) {
+                        // Remove from favorites in the database
+                        await collectionRef.doc(documentId!).delete();
+                        setState(() {
+                          documentId = null;
+                        });
+                      }
+                    },
+                    icon: Icon(
+                      favColor ? Icons.favorite : Icons.favorite_border,
+                      color: favColor ? Colors.green : null,
+                      size: 28,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 80,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(widget.image, fit: BoxFit.cover),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6, top: 6,left: 20,right: 20),
+                child: Text(
+                  widget.title,
+                  style: const TextStyle(fontSize: 13),
+                ),
               ),
             ],
           ),
-          child: Consumer<AddToFav>(
-            builder: (context, fav, child) => Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  flex: 33,
-                  child: Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          splashRadius: 1,
-                          onPressed: () {
-                            fav.addToFav(
-                                widget.title, widget.image,context);
-                            
-                            setState(() {
-                              favColor = !favColor;
-                            });
-                          },
-                          icon: widget.fav == true
-                              ? Icon(
-                                  favColor
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: Colors.green,
-                                  size: 28)
-                              : const SizedBox.shrink())),
-                ),
-                Expanded(
-                  flex: 80,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(widget.image, fit: BoxFit.cover),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6, top: 6),
-                  child:
-                      Text(widget.title, style: const TextStyle(fontSize: 13)),
-                ),
-              ],
-            ),
-          )),
+        ),
+      ),
     );
   }
 }

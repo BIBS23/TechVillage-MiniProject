@@ -45,7 +45,7 @@ dependencies:
   url_launcher: ^6.1.11
   google_sign_in: ^6.1.0
   shared_preferences: ^2.1.1
-  cloud_firestore: ^4.7.1
+  cloud_firestore: ^4.8.1
   intl: ^0.18.1
   firebase_storage: ^11.2.1
   flutter_local_notifications: ^14.1.0

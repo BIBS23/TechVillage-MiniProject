@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:techvillage/Screens/Services/auto.dart';
 import 'package:techvillage/Screens/Services/coconut_climber.dart';
-import 'package:techvillage/Screens/Services/drycleaner.dart';
 import 'package:techvillage/Screens/Services/housekeepers.dart';
 import 'package:techvillage/Screens/Services/local%20workers/localworkers.dart';
 import 'package:techvillage/Screens/Services/mechanic.dart';
@@ -19,26 +18,25 @@ import 'package:techvillage/Screens/products/fish/fish.dart';
 import 'package:techvillage/Screens/products/pickle/pickle_page.dart';
 import 'package:techvillage/Screens/products/spices/spices.dart';
 import 'package:techvillage/Screens/products/vegetable/vegetables.dart';
-
 import '../Screens/Services/carpenter.dart';
 import '../Screens/Services/electrician.dart';
 import '../Screens/Services/plumber.dart';
 import '../Screens/products/milk.dart';
 
 class AddToFav extends ChangeNotifier {
-  String _fav = 'true';
 
-    User? user = FirebaseAuth.instance.currentUser;
-    late String userId = user!.uid;
+  User? user = FirebaseAuth.instance.currentUser;
+  late String userId = user!.uid;
+
 
   // Save the favorites to Firestore
 
-  
-
-void addToFav(String prodTitle, String prodImg, BuildContext context) {
+  void addToFav(String prodTitle, String prodImg, BuildContext context) {
     // Check if the item already exists in the favorites collection
     FirebaseFirestore.instance
-        .collection('favourites').doc(userId).collection('myfavourites')
+        .collection('favourites')
+        .doc(userId)
+        .collection('myfavourites')
         .where('title', isEqualTo: prodTitle)
         .where('image', isEqualTo: prodImg)
         .get()
@@ -70,7 +68,9 @@ void addToFav(String prodTitle, String prodImg, BuildContext context) {
       } else {
         // Check if the total number of items is less than or equal to 6
         FirebaseFirestore.instance
-            .collection('favourites').doc(userId).collection('myfavourites')
+            .collection('favourites')
+            .doc(userId)
+            .collection('myfavourites')
             .get()
             .then((snapshot) {
           if (snapshot.size >= 6) {
@@ -99,10 +99,13 @@ void addToFav(String prodTitle, String prodImg, BuildContext context) {
             );
           } else {
             // If the item doesn't exist and the total items are less than 6, add it to the favorites collection
-            FirebaseFirestore.instance.collection('favourites').doc(userId).collection('myfavourites').add({
+            FirebaseFirestore.instance
+                .collection('favourites')
+                .doc(userId)
+                .collection('myfavourites')
+                .add({
               'title': prodTitle,
               'image': prodImg,
-              'fav': _fav,
               'id': userId.toString()
             });
             notifyListeners();
@@ -112,7 +115,8 @@ void addToFav(String prodTitle, String prodImg, BuildContext context) {
     });
   }
 
-  void deleteItemFromDatabase(String documentId, BuildContext context) {
+  void deleteItemFromDatabase(
+      String documentId, BuildContext context, bool changefavcolor) {
     showDialog(
       context: context,
       builder: (context) {
@@ -125,8 +129,11 @@ void addToFav(String prodTitle, String prodImg, BuildContext context) {
                 Navigator.pop(context); // Close the dialog
                 FirebaseFirestore.instance
                     .collection('favourites')
-                    .doc(userId).collection('myfavourites').doc(documentId)
+                    .doc(userId)
+                    .collection('myfavourites')
+                    .doc(documentId)
                     .delete();
+        
               },
               child: const Text('Delete'),
             ),
@@ -140,11 +147,6 @@ void addToFav(String prodTitle, String prodImg, BuildContext context) {
         );
       },
     );
-  }
-
-  void favColor(String fav) {
-    _fav = fav;
-    notifyListeners();
   }
 
   Widget getWidgetFromType(String type) {

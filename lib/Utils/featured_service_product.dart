@@ -21,6 +21,7 @@ class FeaturedProdService extends StatelessWidget {
     required this.iconimage,
     required this.title,
     required this.widget,
+  
   });
 
   @override
@@ -46,7 +47,7 @@ class FeaturedProdService extends StatelessWidget {
         if (context.mounted) {
           // Call deleteItemFromDatabase function here with documentId
           Provider.of<AddToFav>(context, listen: false)
-              .deleteItemFromDatabase(documentId, context);
+              .deleteItemFromDatabase(documentId, context,false);
         }
       } else {
         print('No documents found');

@@ -207,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                     // Delete the item from the database
                       
                                     fav.deleteItemFromDatabase(
-                                        documentSnapshot.id, context);
+                                        documentSnapshot.id, context,false);
                                   },
                                   child: FeaturedProdService(
                                       bbottom: isLastItem ? 0.01 : 0.3,

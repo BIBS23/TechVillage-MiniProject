@@ -18,7 +18,7 @@ class _MilkPageState extends State<MilkPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(62, 202, 59, 100),
-          title: const Text('Milk',
+          title: const Text('Milk (പാൽ)',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           elevation: 0,
           leading: IconButton(

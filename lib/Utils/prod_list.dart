@@ -24,16 +24,16 @@ List prodList = [
 ];
 
 List prodTitle = [
-  'Milk',
-  'Coconut',
-  'Egg',
-  'Pickles',
-  'Fish',
-  'Chicken',
-  'Spices',
-  'Vegetables',
-  'Banana',
-  'Cakes'
+  'Milk (പാൽ)',
+  'Coconut (തേങ്ങ)',
+  'Egg (മുട്ട)',
+  'Pickles (അച്ചാർ)',
+  'Fish (മീൻ)',
+  'Chicken (കോഴി)',
+  'Spices (സുഗന്ധവ്യഞ്ജനങ്ങൾ)',
+  'Vegetables (പച്ചക്കറി)',
+  'Banana (പഴം)',
+  'Cakes (കേക്ക്)'
 ];
 
  List productType =  [
