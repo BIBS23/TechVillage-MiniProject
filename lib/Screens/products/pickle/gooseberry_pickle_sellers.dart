@@ -48,7 +48,6 @@ class _GooseberryPickleSellersPageState extends State<GooseberryPickleSellersPag
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
-                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
                           profimg: documentSnapshot['profimg'],

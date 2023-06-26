@@ -48,7 +48,6 @@ class _LadiesFingerSellersPageState extends State<LadiesFingerSellersPage> {
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
-                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
                             profimg: documentSnapshot['profimg'],

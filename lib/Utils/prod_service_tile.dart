@@ -38,10 +38,8 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
         QueryDocumentSnapshot<Object?> documentSnapshot = documentList[i];
         if (widget.title == documentSnapshot.get('title') &&
             widget.image == documentSnapshot.get('image')) {
-          setState(() {
-            favColor = true;
-            documentId = documentSnapshot.id; // Set the document ID
-          });
+          documentId = documentSnapshot.id; // Set the document ID
+
           break; // Exit the loop after finding a match
         }
 
@@ -95,23 +93,6 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
                       setState(() {
                         favColor = !favColor;
                       });
-
-                      if (favColor) {
-                        // Add to favorites in the database
-                        DocumentReference docRef = await collectionRef.add({
-                          'title': widget.title,
-                          'image': widget.image,
-                        });
-                        setState(() {
-                          documentId = docRef.id;
-                        });
-                      } else if (documentId != null) {
-                        // Remove from favorites in the database
-                        await collectionRef.doc(documentId!).delete();
-                        setState(() {
-                          documentId = null;
-                        });
-                      }
                     },
                     icon: Icon(
                       favColor ? Icons.favorite : Icons.favorite_border,
@@ -129,7 +110,8 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 6, top: 6,left: 20,right: 20),
+                padding: const EdgeInsets.only(
+                    bottom: 6, top: 6, left: 20, right: 20),
                 child: Text(
                   widget.title,
                   style: const TextStyle(fontSize: 13),

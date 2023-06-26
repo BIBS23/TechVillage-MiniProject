@@ -48,7 +48,6 @@ class _IvyGourdSellersPageState extends State<IvyGourdSellersPage> {
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
-                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
                           profimg: documentSnapshot['profimg'],

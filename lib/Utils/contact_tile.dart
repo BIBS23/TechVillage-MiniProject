@@ -35,7 +35,6 @@ class ContactTile extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
         child: Container(
-          height: 175,
           decoration: BoxDecoration(
               color: Colors.white70,
               boxShadow: [
@@ -74,6 +73,7 @@ class ContactTile extends StatelessWidget {
                   const SizedBox(height: 5),
                  istrue == true? Text('Exp : $exp', style: const TextStyle(fontSize: 15)):Text('Rate : $exp', style: const TextStyle(fontSize: 15)),
                   const SizedBox(height: 5),
+                 avail==null?const SizedBox.shrink(): Text('Availability : $avail', style: const TextStyle(fontSize: 15)),
                   const SizedBox(height: 5),
                 ],
               ),
@@ -99,7 +99,8 @@ class ContactTile extends StatelessWidget {
                     ),
                     child: const Text('Call')),
               ],
-            )
+            ),
+            const SizedBox(height: 20),
           ]),
         ));
   }

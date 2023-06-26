@@ -48,7 +48,6 @@ class _MangoPickleSellersPageState extends State<MangoPickleSellersPage> {
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
-                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
                           profimg: documentSnapshot['profimg'],

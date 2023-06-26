@@ -52,7 +52,6 @@ class _TailorPageState extends State<BananaSellersPage> {
                       final DocumentSnapshot documentSnapshot =
                           snapshot.data!.docs[index];
                       return ContactTile(
-                         avail: documentSnapshot['availability'],
                         phoneNumber: documentSnapshot['phone'],
                         name: documentSnapshot['name'],
                         exp: documentSnapshot['exp'],

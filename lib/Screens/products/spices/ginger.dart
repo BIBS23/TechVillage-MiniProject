@@ -48,7 +48,6 @@ class _GingerSellersPageState extends State<GingerSellersPage> {
                             snapshot.data!.docs[index];
                         return ContactTile(
                           phoneNumber: documentSnapshot['phone'],
-                           avail: documentSnapshot['availability'],
                           name: documentSnapshot['name'],
                           exp: documentSnapshot['exp'],
                           profimg: documentSnapshot['profimg'],

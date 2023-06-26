@@ -48,7 +48,6 @@ class _ThilopiaPageState extends State<ThilopiaPage> {
                       return ContactTile(
                         phoneNumber: documentSnapshot['phone'],
                         name: documentSnapshot['name'],
-                         avail: documentSnapshot['availability'],
                         exp: documentSnapshot['exp'],
                           profimg: documentSnapshot['profimg'],
                         route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',collection2: 'thilopia',document: 'fish',),

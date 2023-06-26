@@ -49,7 +49,6 @@ class _CatlaPageState extends State<CatlaPage> {
                         phoneNumber: documentSnapshot['phone'],
                         name: documentSnapshot['name'],
                         exp: documentSnapshot['exp'],
-                        avail: documentSnapshot['availability'],
                         profimg: documentSnapshot['profimg'],
                         route: ProfilePage(  profimg: documentSnapshot['profimg'],name: documentSnapshot['name'],profile: documentSnapshot['about'],collection1: 'products',collection2: 'catla',document: 'fish',),
                       );

@@ -225,19 +225,19 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   }
                 }),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: CarouselSlider(
                 options: CarouselOptions(
                   viewportFraction: 1,
                   autoPlay: true,
-                  height: 130,
+                  height: 120,
                   onPageChanged: (index, reason) {
                     setState(() {
                       currentIndex = index;
                     });
                   },
                 ),
-                items: carouselItems,
+                items: carouselAdItems,
               ),
             )
           ],
