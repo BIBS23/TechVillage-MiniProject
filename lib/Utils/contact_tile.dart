@@ -1,25 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactTile extends StatelessWidget {
   final String phoneNumber;
-  final String name;
+  final String? name;
   final String? exp;
   final String? profimg;
   final Widget? route;
   final String? avail;
   final bool? istrue;
+  final String? rate;
 
   const ContactTile({
     super.key,
     required this.phoneNumber,
-    required this.name,
+    this.name,
     this.exp,
     this.istrue,
     required this.route,
     this.avail,
     this.profimg,
+    this.rate,
   });
 
   @override
@@ -64,16 +65,22 @@ class ContactTile extends StatelessWidget {
                   SizedBox(
                       width: 170,
                       child: Center(
-                          child: Text(name,
+                          child: Text(name.toString(),
                               textAlign: TextAlign.justify,
                               style: const TextStyle(
                                   fontSize: 20,
                                   overflow: TextOverflow.ellipsis,
                                   fontWeight: FontWeight.w500)))),
                   const SizedBox(height: 5),
-                 istrue == true? Text('Exp : $exp', style: const TextStyle(fontSize: 15)):Text('Rate : $exp', style: const TextStyle(fontSize: 15)),
+                  if (exp != null)
+                    Text('Exp : $exp', style: const TextStyle(fontSize: 15)),
+                  if (rate != null)
+                    Text('Rate : $rate', style: const TextStyle(fontSize: 15)),
                   const SizedBox(height: 5),
-                 avail==null?const SizedBox.shrink(): Text('Availability : $avail', style: const TextStyle(fontSize: 15)),
+                  avail == null
+                      ? const SizedBox.shrink()
+                      : Text('Availability : $avail',
+                          style: const TextStyle(fontSize: 15)),
                   const SizedBox(height: 5),
                 ],
               ),

@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:techvillage/Screens/other%20screens/login_screen.dart';
+import 'package:techvillage/screens/login_screen.dart';
 
 
 void main() {

@@ -9,7 +9,7 @@ final carouselItems = [
 
 final carouselAdItems = [
   Image.asset('assets/ad1.png'),
-  Image.asset('assets/ad2.jpg'),
+  Image.asset('assets/ad2.png'),
   Image.asset('assets/ad3.png'),
 
 ];

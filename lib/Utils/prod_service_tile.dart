@@ -4,18 +4,24 @@ import 'package:provider/provider.dart';
 import 'package:techvillage/controller/add_to_fav.dart';
 
 class ProdServiceTile extends StatefulWidget {
-  final String image;
-  final String title;
+  final String? title;
+  final String? image;
+  final Widget? widget;
   final Widget? type;
   final bool? fav;
   final bool? isFavorite;
+  final String? docid;
+  final String? appTitle;
   const ProdServiceTile({
     Key? key,
-    required this.title,
-    required this.image,
     this.type,
+    this.docid,
     this.fav,
     this.isFavorite = false,
+    this.title,
+    this.image,
+    this.widget, 
+    this.appTitle,
   }) : super(key: key);
 
   @override
@@ -63,7 +69,7 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => widget.type!),
+          MaterialPageRoute(builder: (context) => widget.widget as Widget),
         );
       },
       child: Container(
@@ -89,7 +95,8 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
                   child: IconButton(
                     splashRadius: 1,
                     onPressed: () async {
-                      fav.addToFav(widget.title, widget.image, context);
+                      fav.addToFav(widget.title.toString(),
+                           widget.image.toString(),widget.appTitle.toString(),context);
                       setState(() {
                         favColor = !favColor;
                       });
@@ -105,15 +112,16 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
               Expanded(
                 flex: 80,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(widget.image, fit: BoxFit.cover),
-                ),
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image(
+                        image: NetworkImage(widget.image.toString()),
+                        fit: BoxFit.fill)),
               ),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: 6, top: 6, left: 20, right: 20),
                 child: Text(
-                  widget.title,
+                  widget.title.toString(),
                   style: const TextStyle(fontSize: 13),
                 ),
               ),
