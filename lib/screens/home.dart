@@ -10,7 +10,6 @@ import 'package:techvillage/Utils/featured_service_product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:techvillage/controller/add_to_fav.dart';
-import 'package:techvillage/controller/notification.dart';
 import 'aboutus_screen.dart';
 import 'contact_screen.dart.dart';
 import 'feedback_screen.dart';
