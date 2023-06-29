@@ -69,6 +69,7 @@ class _ServiceProvidersPageState extends State<ServiceProvidersPage> {
                           phoneNumber: documentSnapshot['phone'],
                           exp: documentSnapshot['exp'],
                           profimg: documentSnapshot['profimg'],
+                          avail: documentSnapshot['availability'],
                           route: ProfilePage(
                             profimg: documentSnapshot['profimg'],
                             name: documentSnapshot['workername'],

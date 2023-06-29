@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:techvillage/Services/service_provider_page.dart';
-import 'package:techvillage/controller/add_to_fav.dart';
 import 'package:techvillage/products/product_sellers_page.dart';
 
 class FeaturedProdService extends StatelessWidget {
@@ -27,33 +24,10 @@ class FeaturedProdService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late String documentId;
 
-    Future getDocumentIds() async {
-      CollectionReference collectionRef =
-          FirebaseFirestore.instance.collection('favourites');
 
-      QuerySnapshot<Object?> snapshot = await collectionRef.get();
-
-      if (snapshot.docs.isNotEmpty) {
-        List<QueryDocumentSnapshot<Object?>> documentList = snapshot.docs;
-
-        for (int i = 0; i < documentList.length; i++) {
-          QueryDocumentSnapshot<Object?> documentSnapshot = documentList[i];
-          documentId = documentSnapshot.id;
-
-          // Use the document ID as needed
-          print('Document ID at index $i: $documentId');
-        }
-        if (context.mounted) {
-          // Call deleteItemFromDatabase function here with documentId
-          Provider.of<AddToFav>(context, listen: false)
-              .deleteItemFromDatabase(documentId, context, false);
-        }
-      } else {
-        print('No documents found');
-      }
-    }
+    
+      
 
     return GestureDetector(
         onTap: () {

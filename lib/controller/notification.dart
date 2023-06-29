@@ -82,7 +82,7 @@ class NotificationBanner with ChangeNotifier {
           // A new document was added and it's not the same as the last processed document
           showNotification(
             'New Grant Available', // Notification title
-            'A new grant is available in Firebase.', // Notification body
+            'check out new grants are avilable apply now', // Notification body
           );
 
           // Update the last processed document ID with the new document's ID
