@@ -2,16 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
 class AddToFav extends ChangeNotifier {
-
   User? user = FirebaseAuth.instance.currentUser;
   late String userId = user!.uid;
 
-
   // Save the favorites to Firestore
 
-  void addToFav(String prodTitle, String prodImg,String prodors, BuildContext context) {
+  void addToFav(
+      String prodTitle, String prodImg, String prodors, BuildContext context) {
     // Check if the item already exists in the favorites collection
     FirebaseFirestore.instance
         .collection('favourites')
@@ -114,7 +112,6 @@ class AddToFav extends ChangeNotifier {
                     .collection('myfavourites')
                     .doc(documentId)
                     .delete();
-        
               },
               child: const Text('Delete'),
             ),
@@ -128,6 +125,6 @@ class AddToFav extends ChangeNotifier {
         );
       },
     );
+    notifyListeners();
   }
-
-  }
+}

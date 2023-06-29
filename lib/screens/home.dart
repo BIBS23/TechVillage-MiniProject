@@ -37,11 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   bool showLimitMessage = false;
   late String documentId;
+  String? myProdTitle;
+  String? myServiceTitle;
 
   @override
   void initState() {
     super.initState();
     getDocumentIds();
+    // fetchProdTitles();
+    // fetchServiceTitles();
   }
 
   @override
@@ -70,6 +74,42 @@ class _HomeScreenState extends State<HomeScreen> {
       pad3 = ad3.get('ad3');
     });
   }
+
+  // Future<void> fetchProdTitles() async {
+  //   CollectionReference prodRef =
+  //       FirebaseFirestore.instance.collection('products');
+
+  //   QuerySnapshot querySnapshot = await prodRef.get();
+  //   List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
+  //   // Iterate over the documents
+  //   for (QueryDocumentSnapshot document in documents) {
+  //     setState(() {
+  //             myProdTitle = document.get('prodtitle');
+  //     // Do something with the prodTitle...
+        
+  //     });
+
+  //   }
+  // }
+
+  // Future<void> fetchServiceTitles() async {
+  //   CollectionReference serviceRef =
+  //       FirebaseFirestore.instance.collection('services');
+
+  //   QuerySnapshot querySnapshot = await serviceRef.get();
+  //   List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
+  //   // Iterate over the documents
+  //   for (QueryDocumentSnapshot document in documents) {
+  //     setState(() {
+  //         myServiceTitle = document.get('servicetitle');
+        
+  //     });
+    
+  //     // Do something with the prodTitle...
+  //   }
+  // }
 
   List panchayatAds = [];
 
@@ -221,6 +261,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisCount: 3,
                         ),
                         itemBuilder: (context, index) {
+                      
+
                           final DocumentSnapshot documentSnapshot =
                               snapshot.data!.docs[index];
                           final bool isLastItem =
@@ -236,7 +278,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 false,
                               );
                             },
-                            child: FeaturedProdService(
+                            // child: (myProdTitle == documentSnapshot['title'] || myServiceTitle == documentSnapshot['title'])? 
+                             child: FeaturedProdService(
                               bbottom: isLastItem ? 0.01 : 0.3,
                               bleft: isFirstItem ? 0.01 : 0.3,
                               bright: isLastItem ? 0.01 : 0.3,
@@ -244,7 +287,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               iconimage: documentSnapshot['image'],
                               title: documentSnapshot['title'],
                               prodors: documentSnapshot['prodors'],
-                            ),
+                             )
+                            // :SizedBox.shrink(),
                           );
                         },
                       ),
@@ -259,8 +303,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: pad1 != null && pad2 != null && pad3 != null
                 ? FutureBuilder<void>(
                     future: getDocumentIds(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<void> snapshot) {
+                    builder:
+                        (BuildContext context, AsyncSnapshot<void> snapshot) {
                       return CarouselSlider(
                         options: CarouselOptions(
                           viewportFraction: 1,
