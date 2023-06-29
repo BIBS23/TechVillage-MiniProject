@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                        CircleAvatar(
-                          radius: 60, backgroundImage: NetworkImage(widget.profimg)),
+                          radius: 60, backgroundImage: CachedNetworkImageProvider(widget.profimg) ),
                       const SizedBox(height: 30),
                       Text(widget.name,
                           style: const TextStyle(

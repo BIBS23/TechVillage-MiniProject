@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 
 class ContactTile extends StatelessWidget {
   final String phoneNumber;
@@ -55,7 +57,7 @@ class ContactTile extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 3),
                   child: CircleAvatar(
                       maxRadius: 28,
-                      backgroundImage: NetworkImage(profimg.toString())),
+                      backgroundImage: CachedNetworkImageProvider(profimg.toString())),
                 ),
               ),
               const SizedBox(width: 30),

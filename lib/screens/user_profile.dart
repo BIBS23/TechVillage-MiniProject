@@ -20,7 +20,6 @@ class _TechVillageProfilePageState extends State<TechVillageProfilePage> {
   @override
   void initState() {
     fetchUserProfile();
- 
 
     super.initState();
   }
@@ -34,21 +33,12 @@ class _TechVillageProfilePageState extends State<TechVillageProfilePage> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     void loader() {
-      showDialog(
-        context: context,
-        barrierDismissible:
-            false, // Prevent dismissing the dialog by tapping outside
-        builder: (context) {
-          return const CupertinoActivityIndicator(
-            color: Colors.white,
-            radius: 15,
-          );
-        },
+      const CupertinoActivityIndicator(
+        color: Colors.white,
+        radius: 15,
       );
     }
 
@@ -79,21 +69,30 @@ class _TechVillageProfilePageState extends State<TechVillageProfilePage> {
                     radius: 18,
                   ))
                 : Column(children: [
-                   prof.isNotEmpty ? Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                          padding: const EdgeInsets.only(top: 40),
-                          child:  CircleAvatar(
+                    prof.isNotEmpty
+                        ? Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                                padding: const EdgeInsets.only(top: 40),
+                                child: CircleAvatar(
+                                    radius: 60,
+                                    backgroundImage: NetworkImage(prof))),
+                          )
+                        : Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                                padding: const EdgeInsets.only(top: 40),
+                                child: CircleAvatar(
                                   radius: 60,
-                                  backgroundImage: NetworkImage(prof))),
-                    ):  Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                          padding: const EdgeInsets.only(top: 40),
-                          child:  CircleAvatar(
-                                  radius: 60,
-                                  backgroundColor: const Color.fromARGB(156, 111, 194, 98).withOpacity(0.9),
-                                  child: Text(auth.userName![0],style: const TextStyle(color: Colors.white,fontSize: 50),),))) ,
+                                  backgroundColor:
+                                      const Color.fromARGB(156, 111, 194, 98)
+                                          .withOpacity(0.9),
+                                  child: Text(
+                                    auth.userName![0],
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 50),
+                                  ),
+                                ))),
                     const SizedBox(height: 50),
                     Text(auth.userName.toString()),
                     const SizedBox(height: 20),

@@ -15,6 +15,7 @@ import 'aboutus_screen.dart';
 import 'contact_screen.dart.dart';
 import 'feedback_screen.dart';
 import 'grant_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget> drawersPage = const [
+  List drawersPage = const [
     ContactPage(),
     FeedbackPage(),
     AboutUsPage(),
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  List<Widget> panchayatAds = [];
+  List panchayatAds = [];
 
   @override
   Widget build(BuildContext context) {
@@ -199,53 +200,57 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.4,
                     width: MediaQuery.of(context).size.width,
-                    child: const Center(child: Text('Add your favourites')),
+                    child: const Center(
+                      child: Text('Add your favourites'),
+                    ),
                   ),
                 );
               } else {
-                return Consumer<AddToFav>(builder: (context, fav, child) {
-                  return SizedBox(
-                    height: 300,
-                    width: MediaQuery.of(context).size.width,
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: snapshot.data!.docs.length > 6
-                          ? 6
-                          : snapshot.data!.docs.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                      ),
-                      itemBuilder: (context, index) {
-                        final DocumentSnapshot documentSnapshot =
-                            snapshot.data!.docs[index];
-                        final bool isLastItem =
-                            index >= snapshot.data!.docs.length - 4;
-                        final bool isFirstItem = index < 3;
+                return Consumer<AddToFav>(
+                  builder: (context, fav, child) {
+                    return SizedBox(
+                      height: 300,
+                      width: MediaQuery.of(context).size.width,
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.docs.length > 6
+                            ? 6
+                            : snapshot.data!.docs.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                        ),
+                        itemBuilder: (context, index) {
+                          final DocumentSnapshot documentSnapshot =
+                              snapshot.data!.docs[index];
+                          final bool isLastItem =
+                              index >= snapshot.data!.docs.length - 4;
+                          final bool isFirstItem = index < 3;
 
-                        return GestureDetector(
-                          onLongPress: () {
-                            // Delete the item from the database
-                            fav.deleteItemFromDatabase(
-                              documentSnapshot.id,
-                              context,
-                              false,
-                            );
-                          },
-                          child: FeaturedProdService(
-                            bbottom: isLastItem ? 0.01 : 0.3,
-                            bleft: isFirstItem ? 0.01 : 0.3,
-                            bright: isLastItem ? 0.01 : 0.3,
-                            btop: isFirstItem ? 0 : 0.3,
-                            iconimage: documentSnapshot['image'],
-                            title: documentSnapshot['title'],
-                            prodors: documentSnapshot['prodors'],
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                });
+                          return GestureDetector(
+                            onLongPress: () {
+                              // Delete the item from the database
+                              fav.deleteItemFromDatabase(
+                                documentSnapshot.id,
+                                context,
+                                false,
+                              );
+                            },
+                            child: FeaturedProdService(
+                              bbottom: isLastItem ? 0.01 : 0.3,
+                              bleft: isFirstItem ? 0.01 : 0.3,
+                              bright: isLastItem ? 0.01 : 0.3,
+                              btop: isFirstItem ? 0 : 0.3,
+                              iconimage: documentSnapshot['image'],
+                              title: documentSnapshot['title'],
+                              prodors: documentSnapshot['prodors'],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
               }
             },
           ),
@@ -254,7 +259,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: pad1 != null && pad2 != null && pad3 != null
                 ? FutureBuilder<void>(
                     future: getDocumentIds(),
-                    builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                    builder: (BuildContext context,
+                        AsyncSnapshot<void> snapshot) {
                       return CarouselSlider(
                         options: CarouselOptions(
                           viewportFraction: 1,
@@ -267,9 +273,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                         items: [
-                          Image.network(pad1!, fit: BoxFit.cover),
-                          Image.network(pad2!, fit: BoxFit.cover),
-                          Image.network(pad3!, fit: BoxFit.cover),
+                          CachedNetworkImage(
+                            imageUrl: pad1.toString(),
+                            fit: BoxFit.cover,
+                          ),
+                          CachedNetworkImage(
+                            imageUrl: pad2.toString(),
+                            fit: BoxFit.cover,
+                          ),
+                          CachedNetworkImage(
+                            imageUrl: pad3.toString(),
+                            fit: BoxFit.cover,
+                          ),
                         ],
                       );
                     },
