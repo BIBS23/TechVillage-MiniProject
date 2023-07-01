@@ -12,15 +12,18 @@ class ProdServiceTile extends StatefulWidget {
   final bool? isFavorite;
   final String? docid;
   final String? appTitle;
+  final String? rate;
   const ProdServiceTile({
     Key? key,
     this.type,
     this.docid,
+    this.rate,
     this.fav,
     this.isFavorite = false,
     this.title,
     this.image,
-    this.widget, this.appTitle, 
+    this.widget,
+    this.appTitle,
     // this.appTitle,
   }) : super(key: key);
 
@@ -31,9 +34,12 @@ class ProdServiceTile extends StatefulWidget {
 class _ProdServiceTileState extends State<ProdServiceTile> {
   bool favColor = false;
   String? documentId;
+  String? docid;
 
   CollectionReference collectionRef =
       FirebaseFirestore.instance.collection('favourites');
+  CollectionReference addRef = FirebaseFirestore.instance.collection('mycart');
+
   void getData() async {
     QuerySnapshot<Object?> snapshot = await collectionRef.get();
 
@@ -55,10 +61,28 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
     }
   }
 
+  void addToCart() async {
+    QuerySnapshot<Object?> snapshot = await addRef.get();
+
+    if (snapshot.docs.isNotEmpty) {
+      List<QueryDocumentSnapshot<Object?>> documentList = snapshot.docs;
+
+      for (int i = 0; i < documentList.length; i++) {
+        QueryDocumentSnapshot<Object?> documentSnapshot = documentList[i];
+
+        docid = documentSnapshot.id;
+
+        // Use the document ID as needed
+        print('Document ID at index $i: ${documentSnapshot.id}');
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+    addToCart();
   }
 
   @override
@@ -95,8 +119,17 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
                   child: IconButton(
                     splashRadius: 1,
                     onPressed: () async {
-                      fav.addToFav(widget.title.toString(),
-                           widget.image.toString(),widget.appTitle.toString(),context);
+                      widget.appTitle == 'Services'
+                          ? fav.addToFav(
+                              widget.title.toString(),
+                              widget.image.toString(),
+                              widget.appTitle.toString(),
+                              context)
+                          : fav.addToCart(
+                              widget.title.toString(),
+                              widget.image.toString(),
+                              widget.rate.toString());
+
                       setState(() {
                         favColor = !favColor;
                       });
@@ -111,18 +144,17 @@ class _ProdServiceTileState extends State<ProdServiceTile> {
               ),
               Expanded(
                 flex: 80,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                child: SizedBox(
                     child: Image(
-                        image: NetworkImage(widget.image.toString()),
-                        fit: BoxFit.fill)),
+                        image: NetworkImage(widget.image.toString()),width: 110,height: 150,
+                        fit: BoxFit.contain)),
               ),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: 6, top: 6, left: 20, right: 20),
                 child: Text(
                   widget.title.toString(),
-                  style: const TextStyle(fontSize: 13),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ],

@@ -127,4 +127,11 @@ class AddToFav extends ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void addToCart(String title, String img, String rate) {
+    FirebaseFirestore.instance
+        .collection('mycart').doc(userId).collection('cartitems')
+        .add({'prodname': title, 'prodimg': img, 'rate': rate, 'id': userId,});
+    notifyListeners();
+  }
 }

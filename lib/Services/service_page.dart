@@ -81,6 +81,7 @@ class _ServicePageState extends State<ServicePage> {
               padding: const EdgeInsets.only(top: 40, left: 100),
               child: expand
                   ? TextField(
+                    textCapitalization: TextCapitalization.sentences,
                       controller: _searchController,
                       onChanged: _handleSearch,
                       style: const TextStyle(
@@ -96,7 +97,7 @@ class _ServicePageState extends State<ServicePage> {
             ),
           ),
         ),
-        actions: [
+        leading: 
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
@@ -117,48 +118,51 @@ class _ServicePageState extends State<ServicePage> {
                         .snapshots();
                   },
                   icon: Icon(expand ? Icons.close : Icons.search)))
-        ],
+        ,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: _stream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CupertinoActivityIndicator());
-                } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return const Center(child: Text('No data'));
-                } else {
-                  return GridView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisExtent: 120,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot documentSnapshot =
-                          snapshot.data!.docs[index];
-
-                      return ProdServiceTile(
-                          image: documentSnapshot['serviceimg'],
-                          title: documentSnapshot['servicetitle'],
-                          appTitle: appTitle,
-                          widget: ServiceProvidersPage(
-                            collectionRef: documentSnapshot.id,
-                            servicetitle: documentSnapshot['servicetitle'],
-                          ));
-                    },
-                  );
-                }
-              },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _stream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CupertinoActivityIndicator());
+                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return  Center(child: Image.asset('assets/nodata.png',width: 70,height: 70,));
+                  } else {
+                    return GridView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisExtent: 120,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        crossAxisCount: 2,
+                      ),
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot documentSnapshot =
+                            snapshot.data!.docs[index];
+      
+                        return ProdServiceTile(
+                            image: documentSnapshot['serviceimg'],
+                            title: documentSnapshot['servicetitle'],
+                            appTitle: appTitle,
+                            widget: ServiceProvidersPage(
+                              collectionRef: documentSnapshot.id,
+                              servicetitle: documentSnapshot['servicetitle'],
+                            ));
+                      },
+                    );
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

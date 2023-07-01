@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:techvillage/products/cartscreen.dart';
 import 'package:techvillage/products/viewproduct.dart';
 import 'package:techvillage/screens/add_productdetails.dart';
 import '../Utils/prod_service_tile.dart';
@@ -69,7 +70,7 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   Widget build(BuildContext context) {
-    String appTitle = 'products';
+    String appTitle = 'Products';
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(62, 202, 59, 100),
@@ -87,6 +88,7 @@ class _ProductsPageState extends State<ProductsPage> {
               padding: const EdgeInsets.only(top: 40, left: 100),
               child: expand
                   ? TextField(
+                      textCapitalization: TextCapitalization.sentences,
                       focusNode: inputNode,
                       controller: _searchController,
                       onChanged: _handleSearch,
@@ -103,66 +105,76 @@ class _ProductsPageState extends State<ProductsPage> {
             ),
           ),
         ),
+        leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    expand = !expand;
+                  });
+                  _searchController.clear();
+                  _stream = FirebaseFirestore.instance
+                      .collection('products')
+                      .snapshots();
+                },
+                icon: Icon(expand ? Icons.close : Icons.search))),
         actions: [
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      expand = !expand;
-                    });
-                    _searchController.clear();
-                    _stream = FirebaseFirestore.instance
-                        .collection('products')
-                        .snapshots();
-                  },
-                  icon: Icon(expand ? Icons.close : Icons.search)))
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CartScreen()));
+              },
+              icon: const Icon(Icons.shop))
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: _stream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CupertinoActivityIndicator());
-                } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return const Center(child: Text('No data'));
-                } else {
-                  return GridView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisExtent: 120,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot documentSnapshot =
-                          snapshot.data!.docs[index];
-
-                      return ProdServiceTile(
-                        image: documentSnapshot['prodimg'],
-                        title: documentSnapshot['prodname'],
-                        widget: ViewProductScreen(
-                          prodimg: documentSnapshot['prodimg'],
-                          prodname: documentSnapshot['prodname'],
-                          proddetails: documentSnapshot['proddetails'],
-                          sellerinfo: documentSnapshot['sellerinfo'],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _stream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CupertinoActivityIndicator());
+                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text('No data'));
+                  } else {
+                    return GridView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisExtent: 120,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        crossAxisCount: 2,
+                      ),
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot documentSnapshot =
+                            snapshot.data!.docs[index];
+      
+                        return ProdServiceTile(
+                          image: documentSnapshot['prodimg'],
+                          title: documentSnapshot['prodname'],
                           rate: documentSnapshot['rate'],
-                          docid: documentSnapshot.id,
-                        ),
-                      );
-                    },
-                  );
-                }
-              },
+                          widget: ViewProductScreen(
+                            prodimg: documentSnapshot['prodimg'],
+                            prodname: documentSnapshot['prodname'],
+                            proddetails: documentSnapshot['proddetails'],
+                            sellerinfo: documentSnapshot['sellerinfo'],
+                            rate: documentSnapshot['rate'],
+                            docid: documentSnapshot.id,
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromRGBO(62, 202, 59, 100),

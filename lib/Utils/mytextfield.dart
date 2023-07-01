@@ -22,6 +22,7 @@ class TxtField extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: TextField(
+          textCapitalization: TextCapitalization.sentences,
           maxLines: maxlines,
           keyboardType: type,
           controller: mycontroller,

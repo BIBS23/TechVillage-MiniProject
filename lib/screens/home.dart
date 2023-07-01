@@ -240,8 +240,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.4,
                     width: MediaQuery.of(context).size.width,
-                    child: const Center(
-                      child: Text('Add your favourites'),
+                    child:  Column(
+                      children: [
+                        const SizedBox(height: 50),
+                        Image.asset('assets/fav.png',width: 80,height: 80),
+                        const Text('Add Favourite Services')
+                      ],
                     ),
                   ),
                 );

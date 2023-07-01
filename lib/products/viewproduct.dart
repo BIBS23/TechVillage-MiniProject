@@ -1,13 +1,11 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pay/pay.dart';
+import 'package:techvillage/Utils/gpay_button.dart';
 import 'package:techvillage/Utils/mytextfield.dart';
-import 'package:techvillage/payment_confi.dart';
 import 'package:lottie/lottie.dart';
+import 'package:techvillage/screens/reviewScreen.dart';
 
 class ViewProductScreen extends StatefulWidget {
   final String? prodimg;
@@ -19,12 +17,12 @@ class ViewProductScreen extends StatefulWidget {
 
   const ViewProductScreen({
     Key? key,
-     this.prodimg,
-     this.prodname,
-     this.proddetails,
-     this.sellerinfo,
-     this.rate,
-     this.docid,
+    this.prodimg,
+    this.prodname,
+    this.proddetails,
+    this.sellerinfo,
+    this.rate,
+    this.docid,
   }) : super(key: key);
 
   @override
@@ -33,7 +31,7 @@ class ViewProductScreen extends StatefulWidget {
 
 class _ViewProductScreenState extends State<ViewProductScreen> {
   String? name;
-  String? photoUrl;
+  String photoUrl = '';
   final TextEditingController reviewController = TextEditingController();
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
@@ -67,21 +65,7 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
     });
   }
 
-  var googlePayButton = GooglePayButton(
-    paymentConfiguration: PaymentConfiguration.fromJsonString(defaultGooglePay),
-    paymentItems: const [
-      PaymentItem(
-        label: 'Total',
-        amount: '0.01',
-        status: PaymentItemStatus.final_price,
-      )
-    ],
-    type: GooglePayButtonType.pay,
-    onPaymentResult: (result) => debugPrint('Payment Result $result'),
-    loadingIndicator: const Center(
-      child: CircularProgressIndicator(),
-    ),
-  );
+  
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +75,11 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
           future: _userProfileFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: Lottie.network('https://assets3.lottiefiles.com/packages/lf20_tbrwjiv5.json',width: 130,height: 130));
+              return Center(
+                  child: Lottie.network(
+                      'https://assets3.lottiefiles.com/packages/lf20_tbrwjiv5.json',
+                      width: 130,
+                      height: 130));
             }
 
             return Stack(
@@ -136,7 +124,7 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 30),
+                              const SizedBox(height: 20),
                               Center(
                                 child: Text(
                                   widget.prodname.toString(),
@@ -148,40 +136,45 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                                 ),
                               ),
                               const SizedBox(height: 30),
-                              Center(
-                                child: Text(
-                                  widget.rate.toString(),
-                                  style: const TextStyle(fontSize: 22),
-                                ),
+                              Row(
+                                children: [
+                                   const Text('Price :',
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text('₹ ${widget.rate}',
+                                    style: const TextStyle(fontSize: 22,fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                               const SizedBox(height: 30),
                               const Text(
                                 'Product Details',
                                 style:
-                                    TextStyle(fontSize: 25, letterSpacing: 2),
+                                    TextStyle(fontSize: 20, letterSpacing: 2),
                               ),
                               const SizedBox(height: 18),
                               Text(
                                 widget.proddetails.toString(),
                                 textAlign: TextAlign.justify,
                                 style: const TextStyle(
-                                  fontSize: 17,
-                                  letterSpacing: 2,
+                                  fontSize: 15,
+                              
                                 ),
                               ),
                               const SizedBox(height: 30),
                               const Text(
                                 'Sellers Info',
                                 style:
-                                    TextStyle(fontSize: 25, letterSpacing: 2),
+                                    TextStyle(fontSize: 20, letterSpacing: 2),
                               ),
                               const SizedBox(height: 18),
                               Text(
                                 widget.sellerinfo.toString(),
                                 textAlign: TextAlign.justify,
                                 style: const TextStyle(
-                                  fontSize: 17,
-                                  letterSpacing: 2,
+                                  fontSize: 15,
+                                  
                                 ),
                               ),
                               const SizedBox(height: 18),
@@ -190,7 +183,7 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                                   const Text(
                                     'Product Review',
                                     style: TextStyle(
-                                      fontSize: 25,
+                                      fontSize: 20,
                                       letterSpacing: 2,
                                     ),
                                   ),
@@ -266,7 +259,9 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                                                         .collection('reviews')
                                                         .add({
                                                       'username': name,
-                                                      'userprof': photoUrl,
+                                                      'userprof':photoUrl,
+                                                      'firstletter': name![0],
+
                                                       'review':
                                                           reviewController.text,
                                                       'date': '$d' '-$m-' '$y',
@@ -288,58 +283,11 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                                   ),
                                 ],
                               ),
-                              StreamBuilder(
-                                stream: FirebaseFirestore.instance
-                                    .collection('products')
-                                    .doc(widget.docid)
-                                    .collection('reviews')
-                                    .orderBy('timestamp', descending: true)
-                                    .snapshots(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                                  if (snapshot.hasError) {
-                                    return const Center(
-                                        child: Text('Something went wrong'));
-                                  }
 
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const Center(
-                                        child: CircularProgressIndicator());
-                                  }
-
-                                  if (snapshot.data!.docs.isEmpty) {
-                                    return const Center(
-                                        child: Text('No reviews yet'));
-                                  }
-
-                                  return ListView(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    children: snapshot.data!.docs
-                                        .map((DocumentSnapshot document) {
-                                      Map<String, dynamic> data = document
-                                          .data() as Map<String, dynamic>;
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ListTile(
-                                          leading: CircleAvatar(
-                                            backgroundImage:
-                                                NetworkImage(data['userprof']),
-                                            radius: 20,
-                                          ),
-                                          title: Text(data['username']),
-                                          subtitle: Text(data['review']),
-                                          trailing: Text(data['date']),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  );
-                                },
-                              ),
+                              ReviewGrid(docid: widget.docid.toString()),
+                             
                               const SizedBox(height: 30),
-                              Center(child: googlePayButton),
+                              const Center(child: GpayButton()),
                             ],
                           ),
                         ),

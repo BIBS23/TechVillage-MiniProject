@@ -54,7 +54,7 @@ class _ServiceProvidersPageState extends State<ServiceProvidersPage> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CupertinoActivityIndicator());
               } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                return const Center(child: Text('No data'));
+                return  Center(child: Image.asset('assets/nodata.png',width: 70,height: 70,));
               } else {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
