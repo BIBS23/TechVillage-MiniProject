@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techvillage/Services/service_provider_page.dart';
 import 'package:techvillage/products/products.dart';
-import 'package:techvillage/screens/viewfeatureproduct.dart';
 
 class FeaturedProdService extends StatelessWidget {
   final String iconimage;

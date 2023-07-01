@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pay/pay.dart';
+import 'package:techvillage/Utils/gpay_button.dart';
 import 'package:techvillage/Utils/mytextfield.dart';
-import 'package:techvillage/payment_confi.dart';
 import 'package:lottie/lottie.dart';
 
 class ViewFeaturedProductScreen extends StatefulWidget {
@@ -67,21 +64,7 @@ class _ViewFeaturedProductScreenState extends State<ViewFeaturedProductScreen> {
     });
   }
 
-  var googlePayButton = GooglePayButton(
-    paymentConfiguration: PaymentConfiguration.fromJsonString(defaultGooglePay),
-    paymentItems: const [
-      PaymentItem(
-        label: 'Total',
-        amount: '0.01',
-        status: PaymentItemStatus.final_price,
-      )
-    ],
-    type: GooglePayButtonType.pay,
-    onPaymentResult: (result) => debugPrint('Payment Result $result'),
-    loadingIndicator: const Center(
-      child: CircularProgressIndicator(),
-    ),
-  );
+
 
   @override
   Widget build(BuildContext context) {
@@ -339,7 +322,7 @@ class _ViewFeaturedProductScreenState extends State<ViewFeaturedProductScreen> {
                                 },
                               ),
                               const SizedBox(height: 30),
-                              Center(child: googlePayButton),
+                              const Center(child: GpayButton()),
                             ],
                           ),
                         ),
