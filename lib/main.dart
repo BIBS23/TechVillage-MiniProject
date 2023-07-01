@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:techvillage/controller/access_controller.dart';
 import 'package:techvillage/controller/notification.dart';
 import 'package:techvillage/screens/login_screen.dart';
 import 'package:techvillage/controller/add_to_fav.dart';
@@ -14,11 +15,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   
-  // Initialize notification banner
-  NotificationBanner notificationBanner = NotificationBanner();
-  notificationBanner.initializeNotifications();
-
-
   runApp(const MyApp());
 }
 
@@ -59,7 +55,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthController()),
         ChangeNotifierProvider(create: (_) => AddToFav()),
+        ChangeNotifierProvider(create: (_) => AccessStorage()),
         ChangeNotifierProvider(create: (_) => NotificationBanner()),
+
       ],
       child: MaterialApp(
         title: 'TechVillage',

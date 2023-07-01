@@ -20,8 +20,8 @@ class ProdServiceTile extends StatefulWidget {
     this.isFavorite = false,
     this.title,
     this.image,
-    this.widget, 
-    this.appTitle,
+    this.widget, this.appTitle, 
+    // this.appTitle,
   }) : super(key: key);
 
   @override

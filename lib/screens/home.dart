@@ -286,7 +286,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               btop: isFirstItem ? 0 : 0.3,
                               iconimage: documentSnapshot['image'],
                               title: documentSnapshot['title'],
+                              
                               prodors: documentSnapshot['prodors'],
+                              docid: documentSnapshot.id,
+
                              )
                             // :SizedBox.shrink(),
                           );

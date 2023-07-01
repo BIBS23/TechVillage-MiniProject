@@ -55,11 +55,7 @@ class _ServicePageState extends State<ServicePage> {
                 isGreaterThanOrEqualTo:
                     firstLetter + secondLetter + thirdLetter + fourthLetter)
             .where(FieldPath.documentId,
-                isLessThan: firstLetter +
-                    secondLetter +
-                    thirdLetter +
-                    fourthLetter +
-                    'z')
+                isLessThan: '$firstLetter$secondLetter$thirdLetter${fourthLetter}z')
             .snapshots();
       });
     }

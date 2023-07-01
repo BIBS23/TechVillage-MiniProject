@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techvillage/Services/service_provider_page.dart';
-import 'package:techvillage/products/product_sellers_page.dart';
+import 'package:techvillage/products/products.dart';
+import 'package:techvillage/screens/viewfeatureproduct.dart';
 
 class FeaturedProdService extends StatelessWidget {
   final String iconimage;
@@ -10,6 +11,7 @@ class FeaturedProdService extends StatelessWidget {
   final double bbottom;
   final String title;
   final String? prodors;
+  final String? docid;
 
   const FeaturedProdService({
     super.key,
@@ -19,16 +21,12 @@ class FeaturedProdService extends StatelessWidget {
     required this.btop,
     required this.iconimage,
     required this.title,
+    this.docid,
     this.prodors,
   });
 
   @override
   Widget build(BuildContext context) {
-
-
-    
-      
-
     return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -36,13 +34,10 @@ class FeaturedProdService extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => prodors == 'Services'
                       ? ServiceProvidersPage(
-                        servicetitle: title,
+                          servicetitle: title,
                           collectionRef:
                               title.replaceAll(' ', '').toLowerCase())
-                      : SellersPage(
-                         prodtitle: title,
-                          collectionRef:
-                              title.replaceAll(' ', '').toLowerCase())));
+                     : const  ProductsPage()));
         },
         child: Container(
           height: 90,

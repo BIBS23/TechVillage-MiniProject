@@ -48,6 +48,10 @@ dependencies:
   firebase_storage: ^11.2.1
   flutter_local_notifications: ^14.1.0
   cached_network_image: ^3.2.3
+  image_picker: ^1.0.0
+  permission_handler: ^10.4.1
+  pay: ^1.1.1
+  lottie: ^2.4.0
 
 
 dev_dependencies:

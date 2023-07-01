@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:techvillage/Utils/granttile.dart';
+import 'package:techvillage/controller/notification.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -11,6 +12,14 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
+  late int previousLength; // Track the length of the previous snapshot
+
+  @override
+  void initState() {
+    super.initState();
+    previousLength = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +38,35 @@ class _NotificationPageState extends State<NotificationPage> {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream:
-            FirebaseFirestore.instance.collection('grants').orderBy('timestamp',descending: true).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('grants')
+            .orderBy('timestamp', descending: true)
+            .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CupertinoActivityIndicator());
           }
+
+          final currentLength = snapshot.data!.docs.length;
+
+          if (currentLength > previousLength) {
+            // Initialize notification banner
+            NotificationBanner notificationBanner = NotificationBanner();
+            notificationBanner.initializeNotifications();
+
+            // A new document has been added
+            print('A new document has been added.');
+
+            // Update the previous length for the next iteration
+            previousLength = currentLength;
+          }
+
           return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
+            itemCount: currentLength,
             itemBuilder: (context, index) {
               final DocumentSnapshot documentSnapshot =
                   snapshot.data!.docs[index];
-              return  GrantTile(
+              return GrantTile(
                 grant: documentSnapshot['grant'],
                 exp: documentSnapshot['exp'],
                 category: documentSnapshot['category'],

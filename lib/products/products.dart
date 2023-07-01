@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:techvillage/products/product_sellers_page.dart';
+import 'package:techvillage/products/viewproduct.dart';
+import 'package:techvillage/screens/add_productdetails.dart';
 import '../Utils/prod_service_tile.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -13,6 +14,11 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   final TextEditingController _searchController = TextEditingController();
+  final TextEditingController detailsController = TextEditingController();
+  final TextEditingController rateController = TextEditingController();
+  final TextEditingController sellerinfoController = TextEditingController();
+  final TextEditingController prodnameController = TextEditingController();
+
   late Stream<QuerySnapshot> _stream;
   FocusNode inputNode = FocusNode();
 
@@ -40,29 +46,22 @@ class _ProductsPageState extends State<ProductsPage> {
         _stream = FirebaseFirestore.instance.collection('products').snapshots();
       });
     } else {
-      String firstLetter = searchText.substring(0, 1).toLowerCase();
-      String secondLetter = searchText.length >= 2
-          ? searchText.substring(1, 2).toLowerCase()
-          : "";
-      String thirdLetter = searchText.length >= 3
-          ? searchText.substring(2, 3).toLowerCase()
-          : "";
-      String fourthLetter = searchText.length >= 4
-          ? searchText.substring(3, 4).toLowerCase()
-          : "";
-
+      String firstLetter = searchText.substring(0, 1);
+      String secondLetter =
+          searchText.length >= 2 ? searchText.substring(1, 2) : "";
+      String thirdLetter =
+          searchText.length >= 3 ? searchText.substring(2, 3) : "";
+      String fourthLetter =
+          searchText.length >= 4 ? searchText.substring(3, 4) : "";
       setState(() {
         _stream = FirebaseFirestore.instance
             .collection('products')
-            .where(FieldPath.documentId,
+            .where('prodname',
                 isGreaterThanOrEqualTo:
                     firstLetter + secondLetter + thirdLetter + fourthLetter)
-            .where(FieldPath.documentId,
-                isLessThan: firstLetter +
-                    secondLetter +
-                    thirdLetter +
-                    fourthLetter +
-                    'z')
+            .where('prodname',
+                isLessThan:
+                    '$firstLetter$secondLetter$thirdLetter${fourthLetter}z')
             .snapshots();
       });
     }
@@ -77,7 +76,7 @@ class _ProductsPageState extends State<ProductsPage> {
         title: expand
             ? null
             : Text(appTitle,
-                style: TextStyle(fontSize: 20, letterSpacing: 2)),
+                style: const TextStyle(fontSize: 20, letterSpacing: 2)),
         centerTitle: true,
         flexibleSpace: FlexibleSpaceBar(
           collapseMode: CollapseMode.pin,
@@ -147,12 +146,14 @@ class _ProductsPageState extends State<ProductsPage> {
 
                       return ProdServiceTile(
                         image: documentSnapshot['prodimg'],
-                        title: documentSnapshot['prodtitle'],
-                        docid: documentSnapshot.id,
-                        appTitle: appTitle,
-                        widget: SellersPage(
-                          collectionRef: documentSnapshot.id,
-                          prodtitle: documentSnapshot['prodtitle'],
+                        title: documentSnapshot['prodname'],
+                        widget: ViewProductScreen(
+                          prodimg: documentSnapshot['prodimg'],
+                          prodname: documentSnapshot['prodname'],
+                          proddetails: documentSnapshot['proddetails'],
+                          sellerinfo: documentSnapshot['sellerinfo'],
+                          rate: documentSnapshot['rate'],
+                          docid: documentSnapshot.id,
                         ),
                       );
                     },
@@ -163,6 +164,21 @@ class _ProductsPageState extends State<ProductsPage> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromRGBO(62, 202, 59, 100),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          onPressed: () {
+            AddProdDetails modal = AddProdDetails();
+            modal.showModalSheet(
+              context,
+              prodnameController,
+              detailsController,
+              rateController,
+              sellerinfoController,
+            );
+          },
+          child: const Icon(Icons.add)),
     );
   }
 }
